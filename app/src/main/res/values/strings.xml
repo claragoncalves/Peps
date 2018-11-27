@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PePs</string>
+    <string name="seccion_compras">Compras</string>
+    <string name="seccion_precios">Precios</string>
+    <string name="seccion_pedidos">Pedidos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
