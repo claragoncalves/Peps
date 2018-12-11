@@ -25,21 +25,7 @@ public class ProductRepository {
     }
 
     public void insertProduct(Product product){
-        new InsertAsyncTask(productDAO).execute(product);
+        productDAO.insertProduct(product);
     }
 
-    private static class InsertAsyncTask extends AsyncTask<Product, Void, Void> {
-
-        private ProductDAO asyncTaskDao;
-
-        InsertAsyncTask(ProductDAO dao) {
-            asyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Product... params) {
-            asyncTaskDao.insertProduct(params[0]);
-            return null;
-        }
-    }
 }
