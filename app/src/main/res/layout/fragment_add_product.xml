@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".view.AddProductFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <EditText
+        android:hint="name"
+        android:layout_width="match_parent"
+        android:inputType="textCapWords"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_add_product_edit_text_name"/>
+
+    <EditText
+        android:inputType="textCapSentences"
+        android:hint="description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_add_product_edit_text_description"/>
+
+    <EditText
+        android:inputType="numberDecimal"
+        android:hint="buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_add_product_edit_text_buy_price"/>
+
+    <EditText
+        android:inputType="numberDecimal"
+        android:hint="sell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_add_product_edit_text_sell_price"/>
+
+    <Button
+        android:text="ADD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_add_product_button_add"/>
+</LinearLayout>
