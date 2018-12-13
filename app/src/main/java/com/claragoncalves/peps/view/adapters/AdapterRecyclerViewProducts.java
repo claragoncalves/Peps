@@ -1,4 +1,4 @@
-package com.claragoncalves.peps.view;
+package com.claragoncalves.peps.view.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +15,11 @@ import java.util.List;
 
 public class AdapterRecyclerViewProducts extends RecyclerView.Adapter<AdapterRecyclerViewProducts.ProductViewHolder> {
     private List<Product> products;
+    private ProductSelectedListener listener;
 
-    public AdapterRecyclerViewProducts() {
+    public AdapterRecyclerViewProducts(ProductSelectedListener listener) {
         this.products = new ArrayList<>();
+        this.listener = listener;
     }
 
     public void setProducts(List<Product> products) {
@@ -43,14 +45,33 @@ public class AdapterRecyclerViewProducts extends RecyclerView.Adapter<AdapterRec
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewProductName;
+        private TextView textViewProductDescription;
+        private TextView textViewProductBuyPrice;
+        private TextView textViewProductSellPrice;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewProductName = itemView.findViewById(R.id.cell_product_recycler_textview_name);
+            textViewProductDescription = itemView.findViewById(R.id.cell_product_recycler_textview_description);
+            textViewProductBuyPrice = itemView.findViewById(R.id.cell_product_recycler_textview_buy_price);
+            textViewProductSellPrice = itemView.findViewById(R.id.cell_product_recycler_textview_sell_price);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.productSelected(products.get(getAdapterPosition()).getId());
+                }
+            });
         }
 
         public void bindProduct(Product product){
             textViewProductName.setText(product.getName());
+            textViewProductDescription.setText(product.getDescription());
+            textViewProductBuyPrice.setText(product.getBuyPrice().toString());
+            textViewProductSellPrice.setText(product.getSellPrice().toString());
         }
+    }
+
+    public interface ProductSelectedListener{
+        void productSelected(Integer productId);
     }
 }

@@ -28,4 +28,15 @@ public class ProductRepository {
         productDAO.insertProduct(product);
     }
 
+    public Product getProductById(Integer id){
+        return productDAO.getProductById(id);
+    }
+
+    public void modifyProduct(Product product){
+        productDAO.modifyProduct(product);
+    }
+
+    public void deleteProduct(Product product){
+        productDAO.deleteProduct(product);
+    }
 }

@@ -1,4 +1,4 @@
-package com.claragoncalves.peps.view;
+package com.claragoncalves.peps.view.fragments;
 
 
 import android.content.Context;

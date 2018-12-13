@@ -1,4 +1,4 @@
-package com.claragoncalves.peps.view;
+package com.claragoncalves.peps.view.fragments;
 
 
 import android.arch.lifecycle.Observer;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Product;
+import com.claragoncalves.peps.view.adapters.AdapterRecyclerProducts;
 import com.claragoncalves.peps.viewmodel.ProductViewModel;
 
 import java.util.List;
