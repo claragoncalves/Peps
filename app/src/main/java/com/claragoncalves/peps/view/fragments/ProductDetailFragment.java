@@ -19,8 +19,7 @@ import com.claragoncalves.peps.viewmodel.ProductViewModel;
 public class ProductDetailFragment extends Fragment {
     public static final String PRODUCT_ID_KEY = "productId";
 
-    private ProductUpdateListener updateListener;
-    private ProductDeleteListener deleteListener;
+    private ProductDetailListener productDetailListener;
     private Product product;
 
     @Override
@@ -53,7 +52,7 @@ public class ProductDetailFragment extends Fragment {
         buttonDeleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteListener.deleteProduct(product);
+                productDetailListener.deleteProduct(product);
             }
         });
 
@@ -63,16 +62,12 @@ public class ProductDetailFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        deleteListener = (ProductDeleteListener) context;
-        updateListener = (ProductUpdateListener) context;
+        productDetailListener = (ProductDetailListener) context;
     }
 
-    public interface ProductUpdateListener{
+    public interface ProductDetailListener{
         void updateProduct(Product product);
-    }
-
-    public interface ProductDeleteListener{
         void deleteProduct(Product product);
-    }
 
+    }
 }
