@@ -17,11 +17,15 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Product;
+import com.claragoncalves.peps.view.fragments.AddContactFragment;
 import com.claragoncalves.peps.view.fragments.AddProductFragment;
+import com.claragoncalves.peps.view.fragments.ContactListFragment;
 import com.claragoncalves.peps.view.fragments.OrderListFragment;
 import com.claragoncalves.peps.view.fragments.ProductDetailFragment;
 import com.claragoncalves.peps.view.fragments.ProductListFragment;
@@ -45,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
         setContentView(R.layout.activity_main);
 
         placeFragment(productListFragment, FRAGMENT_PRODUCT_LIST_TAG);
+
+        Button buttonGoToContacts = findViewById(R.id.main_button_go_to_contacts);
+        buttonGoToContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ContactActivity.class);
+                startActivity(intent);
+            }
+        });
+
         setBottomNavigationView();
 
     }

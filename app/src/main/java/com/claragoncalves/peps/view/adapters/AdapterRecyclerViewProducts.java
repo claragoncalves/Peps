@@ -66,8 +66,8 @@ public class AdapterRecyclerViewProducts extends RecyclerView.Adapter<AdapterRec
         public void bindProduct(Product product){
             textViewProductName.setText(product.getName());
             textViewProductDescription.setText(product.getDescription());
-            textViewProductBuyPrice.setText(product.getBuyPrice().toString());
-            textViewProductSellPrice.setText(product.getSellPrice().toString());
+            textViewProductBuyPrice.setText(itemView.getContext().getResources().getString(R.string.currency_symbol) + product.getBuyPrice().toString());
+            textViewProductSellPrice.setText(itemView.getContext().getResources().getString(R.string.currency_symbol) + product.getSellPrice().toString());
         }
     }
 
