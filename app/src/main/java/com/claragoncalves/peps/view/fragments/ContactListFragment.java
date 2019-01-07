@@ -5,15 +5,12 @@ import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +24,7 @@ import com.claragoncalves.peps.viewmodel.ContactViewModel;
 import java.util.List;
 
 
-public class ContactListFragment extends Fragment {
+public class ContactListFragment extends Fragment implements AdapterRecyclerViewContacts.ContactDetailListener {
 
     private ContactViewModel contactViewModel;
     private AdapterRecyclerViewContacts adapterRecyclerViewContacts;
@@ -38,7 +35,7 @@ public class ContactListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
 
-        adapterRecyclerViewContacts = new AdapterRecyclerViewContacts();
+        adapterRecyclerViewContacts = new AdapterRecyclerViewContacts(this);
         RecyclerView recyclerView = view.findViewById(R.id.fragment_contact_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapterRecyclerViewContacts);
@@ -68,6 +65,25 @@ public class ContactListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         listener = (GoToAddContactsListener) context;
+    }
+
+    @Override
+    public void viewContact(String contactId) {
+        openWhatsApp();
+    }
+
+
+    public void openWhatsApp(){
+        try {
+            String text = "This is a test";
+            String toNumber = "5491167855605";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+            startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public interface GoToAddContactsListener{

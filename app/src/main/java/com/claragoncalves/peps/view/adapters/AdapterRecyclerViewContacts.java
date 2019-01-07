@@ -1,5 +1,7 @@
 package com.claragoncalves.peps.view.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,9 +18,11 @@ import java.util.List;
 public class AdapterRecyclerViewContacts extends RecyclerView.Adapter<AdapterRecyclerViewContacts.ContactViewHolder> {
 
     private List<Contact> contacts;
+    private ContactDetailListener listener;
 
-    public AdapterRecyclerViewContacts() {
+    public AdapterRecyclerViewContacts(ContactDetailListener listener) {
         contacts = new ArrayList<>();
+        this.listener = listener;
     }
 
     public void setContacts(List<Contact> contacts) {
@@ -48,10 +52,22 @@ public class AdapterRecyclerViewContacts extends RecyclerView.Adapter<AdapterRec
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewContactName = itemView.findViewById(R.id.cell_contact_recycler_textview_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.viewContact(contacts.get(getAdapterPosition()).getId());
+                }
+            });
         }
 
         public void bindContact(Contact contact){
             textViewContactName.setText(contact.getName());
         }
     }
+
+
+    public interface ContactDetailListener{
+        public void viewContact(String contactId);
+    }
+
 }

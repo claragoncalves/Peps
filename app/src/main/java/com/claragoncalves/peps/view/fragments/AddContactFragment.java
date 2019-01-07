@@ -63,8 +63,11 @@ public class AddContactFragment extends Fragment {
         int contactNameColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
         int contactIdColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
 
+        String phNumber = cP.getString(contactPhoneColumn).replace("+","");
+
+
         while (cP.moveToNext()) {
-            contacts.add(new Contact(cP.getString(contactIdColumn), cP.getString(contactNameColumn), null, cP.getString(contactPhoneColumn), null));
+            contacts.add(new Contact(cP.getString(contactIdColumn), cP.getString(contactNameColumn), null, phNumber, null));
         }
 
         adapter.setContacts(contacts);
