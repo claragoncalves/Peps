@@ -3,6 +3,7 @@ package com.claragoncalves.peps.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.claragoncalves.peps.model.pojo.Contact;
@@ -33,5 +34,8 @@ public class ContactViewModel extends AndroidViewModel {
         repository.insertContacts(contacts);
     }
 
+    public List<Contact> getUserContacts(Context context){
+        return repository.getUserContacts(context);
+    }
 
 }

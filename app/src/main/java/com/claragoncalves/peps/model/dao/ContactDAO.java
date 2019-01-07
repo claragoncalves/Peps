@@ -1,23 +1,36 @@
 package com.claragoncalves.peps.model.dao;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+import android.content.Context;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 
 import com.claragoncalves.peps.model.pojo.Contact;
-import com.claragoncalves.peps.model.pojo.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Dao
-public interface ContactDAO {
+public class ContactDAO {
 
-    @Query("SELECT * from contacts_table ORDER BY name ASC")
-    LiveData<List<Contact>> getAllContacts();
+    public List<Contact> getUserContactsFromPhone(Context context) {
+        List<Contact> contacts = new ArrayList<>();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertContact(Contact contact);
+        Cursor cP = context.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                new String[] { ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.CONTACT_ID },
+                ContactsContract.RawContacts.ACCOUNT_TYPE + "= ?",
+                new String[] { "com.whatsapp" },
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
 
+        int contactPhoneColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+        int contactNameColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+        int contactIdColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
+
+        while (cP.moveToNext()) {
+            String phNumber = cP.getString(contactPhoneColumn).replace("+","");
+            contacts.add(new Contact(cP.getString(contactIdColumn), cP.getString(contactNameColumn), null, phNumber, null));
+        }
+
+        cP.close();
+        return contacts;
+    }
 }

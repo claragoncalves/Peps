@@ -2,15 +2,17 @@ package com.claragoncalves.peps.model.repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 
 import com.claragoncalves.peps.model.PepsRoomDB;
 import com.claragoncalves.peps.model.dao.ContactDAO;
+import com.claragoncalves.peps.model.dao.ContactRoomDAO;
 import com.claragoncalves.peps.model.pojo.Contact;
 
 import java.util.List;
 
 public class ContactRepository {
-    private ContactDAO contactDAO;
+    private ContactRoomDAO contactDAO;
     private LiveData<List<Contact>> contacts;
 
     public ContactRepository(Application application){
@@ -31,5 +33,10 @@ public class ContactRepository {
         for (Contact contact : contacts) {
             contactDAO.insertContact(contact);
         }
+    }
+
+    public List<Contact> getUserContacts(Context context){
+        ContactDAO contactDAO = new ContactDAO();
+        return contactDAO.getUserContactsFromPhone(context);
     }
 }

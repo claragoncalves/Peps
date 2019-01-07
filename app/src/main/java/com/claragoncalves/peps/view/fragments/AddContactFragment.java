@@ -1,6 +1,8 @@
 package com.claragoncalves.peps.view.fragments;
 
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.widget.Button;
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Contact;
 import com.claragoncalves.peps.view.adapters.AdapterRecyclerViewAddContacts;
+import com.claragoncalves.peps.viewmodel.ContactViewModel;
+import com.claragoncalves.peps.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +40,6 @@ public class AddContactFragment extends Fragment {
         adapter = new AdapterRecyclerViewAddContacts();
         recyclerView.setAdapter(adapter);
 
-        addContacts();
-
         Button buttonAddContacts = view.findViewById(R.id.fragment_add_contact_button_add);
         buttonAddContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,34 +48,13 @@ public class AddContactFragment extends Fragment {
             }
         });
 
+        
+        adapter.setContacts(ViewModelProviders.of(this).get(ContactViewModel.class).getUserContacts(getContext()));
+
         return view;
     }
 
-    private void addContacts() {
-        List<Contact> contacts = new ArrayList<>();
 
-        Cursor cP = getActivity().getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                new String[] { ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.CONTACT_ID },
-                ContactsContract.RawContacts.ACCOUNT_TYPE + "= ?",
-                new String[] { "com.whatsapp" },
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
-
-        int contactPhoneColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-        int contactNameColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-        int contactIdColumn = cP.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
-
-        String phNumber = cP.getString(contactPhoneColumn).replace("+","");
-
-
-        while (cP.moveToNext()) {
-            contacts.add(new Contact(cP.getString(contactIdColumn), cP.getString(contactNameColumn), null, phNumber, null));
-        }
-
-        adapter.setContacts(contacts);
-        cP.close();
-
-    }
 
     @Override
     public void onAttach(Context context) {

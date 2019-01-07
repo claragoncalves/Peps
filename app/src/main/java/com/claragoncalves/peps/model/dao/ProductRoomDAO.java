@@ -12,7 +12,7 @@ import com.claragoncalves.peps.model.pojo.Product;
 import java.util.List;
 
 @Dao
-public interface ProductDAO {
+public interface ProductRoomDAO {
 
     @Query("SELECT * from products_table ORDER BY name ASC")
     LiveData<List<Product>> getAllProducts();
