@@ -22,6 +22,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
+            style="@style/textview_generic_title"
             android:id="@+id/cell_product_recycler_textview_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,17 +30,16 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             android:ellipsize="end"
-            android:fontFamily="@font/baloo"
             android:lines="1"
             android:maxLines="1"
             android:text="Titulo del producto"
-            android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
+            style="@style/textview_generic_subtitle"
             android:id="@+id/cell_product_recycler_textview_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,11 +47,9 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:ellipsize="end"
-            android:fontFamily="@font/montserrat"
             android:lines="2"
             android:maxLines="2"
             android:text="descripcion del producto aqui"
-            android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cell_product_recycler_textview_name" />

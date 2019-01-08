@@ -12,13 +12,13 @@ import com.claragoncalves.peps.model.pojo.Contact;
 import java.util.List;
 
 public class ContactRepository {
-    private ContactRoomDAO contactDAO;
+    private ContactRoomDAO contactRoomDAO;
     private LiveData<List<Contact>> contacts;
 
     public ContactRepository(Application application){
         PepsRoomDB pepsRoomDB = PepsRoomDB.getDatabase(application);
-        contactDAO = pepsRoomDB.contactDAO();
-        contacts = contactDAO.getAllContacts();
+        contactRoomDAO = pepsRoomDB.contactDAO();
+        contacts = contactRoomDAO.getAllContacts();
     }
 
     public LiveData<List<Contact>> getAllContacts(){
@@ -26,13 +26,17 @@ public class ContactRepository {
     }
 
     public void insertContact(Contact contact){
-        contactDAO.insertContact(contact);
+        contactRoomDAO.insertContact(contact);
     }
 
     public void insertContacts(List<Contact> contacts){
         for (Contact contact : contacts) {
-            contactDAO.insertContact(contact);
+            contactRoomDAO.insertContact(contact);
         }
+    }
+
+    public Contact getContactById(String contactId){
+        return contactRoomDAO.getContactById(contactId);
     }
 
     public List<Contact> getUserContacts(Context context){

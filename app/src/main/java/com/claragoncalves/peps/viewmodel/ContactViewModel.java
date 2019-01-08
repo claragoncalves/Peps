@@ -38,4 +38,8 @@ public class ContactViewModel extends AndroidViewModel {
         return repository.getUserContacts(context);
     }
 
+    public Contact getContactById(String contactId){
+        return repository.getContactById(contactId);
+    }
+
 }

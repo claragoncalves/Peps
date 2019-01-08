@@ -1,12 +1,9 @@
 package com.claragoncalves.peps.view.fragments;
 
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +16,6 @@ import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Contact;
 import com.claragoncalves.peps.view.adapters.AdapterRecyclerViewAddContacts;
 import com.claragoncalves.peps.viewmodel.ContactViewModel;
-import com.claragoncalves.peps.viewmodel.ProductViewModel;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,7 +42,7 @@ public class AddContactFragment extends Fragment {
             }
         });
 
-        
+
         adapter.setContacts(ViewModelProviders.of(this).get(ContactViewModel.class).getUserContacts(getContext()));
 
         return view;

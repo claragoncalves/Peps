@@ -1,7 +1,6 @@
 package com.claragoncalves.peps.view.fragments;
 
 
-import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -28,7 +27,8 @@ public class ContactListFragment extends Fragment implements AdapterRecyclerView
 
     private ContactViewModel contactViewModel;
     private AdapterRecyclerViewContacts adapterRecyclerViewContacts;
-    private GoToAddContactsListener listener;
+    private GoToAddContactsListener addContactsListener;
+    private GoToContactDetailListener contactDetailListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +53,7 @@ public class ContactListFragment extends Fragment implements AdapterRecyclerView
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.goToAddContacts();
+                addContactsListener.goToAddContacts();
 
             }
         });
@@ -64,29 +64,21 @@ public class ContactListFragment extends Fragment implements AdapterRecyclerView
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (GoToAddContactsListener) context;
+        addContactsListener = (GoToAddContactsListener) context;
+        contactDetailListener = (GoToContactDetailListener)context;
     }
 
     @Override
     public void viewContact(String contactId) {
-        openWhatsApp();
+        contactDetailListener.goToContactDetail(contactId);
     }
 
-
-    public void openWhatsApp(){
-        try {
-            String text = "This is a test";
-            String toNumber = "5491167855605";
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
-            startActivity(intent);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     public interface GoToAddContactsListener{
         public void goToAddContacts();
+    }
+
+    public interface GoToContactDetailListener{
+        public void goToContactDetail(String contactId);
     }
 }

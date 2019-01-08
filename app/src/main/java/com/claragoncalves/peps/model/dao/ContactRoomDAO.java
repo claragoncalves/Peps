@@ -14,10 +14,13 @@ import java.util.List;
 @Dao
 public interface ContactRoomDAO {
 
-    @Query("SELECT * from contacts_table ORDER BY name ASC")
+    @Query("SELECT * FROM contacts_table ORDER BY name ASC")
     LiveData<List<Contact>> getAllContacts();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertContact(Contact contact);
+
+    @Query("SELECT * FROM contacts_table WHERE id == :contactId")
+    Contact getContactById(String contactId);
 
 }

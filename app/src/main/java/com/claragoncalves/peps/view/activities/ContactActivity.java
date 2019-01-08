@@ -13,26 +13,32 @@ import android.os.Bundle;
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Contact;
 import com.claragoncalves.peps.view.fragments.AddContactFragment;
+import com.claragoncalves.peps.view.fragments.ContactDetailFragment;
 import com.claragoncalves.peps.view.fragments.ContactListFragment;
 import com.claragoncalves.peps.viewmodel.ContactViewModel;
 
 import java.util.List;
 
-public class ContactActivity extends AppCompatActivity implements ContactListFragment.GoToAddContactsListener, AddContactFragment.AddContactsListener {
+public class ContactActivity extends AppCompatActivity implements ContactListFragment.GoToAddContactsListener, AddContactFragment.AddContactsListener, ContactListFragment.GoToContactDetailListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static final String FRAGMENT_CONTACT_LIST_TAG = "fragmentContactList";
+    private static final String FRAGMENT_CONTACT_DETAIL_TAG = "fragmentContactDetail";
+    private static final String FRAGMENT_ADD_CONTACT_TAG = "fragmentAddContact";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-        placeFragment(new ContactListFragment(), "contactList");
+        placeFragment(new ContactListFragment(), FRAGMENT_CONTACT_LIST_TAG);
     }
 
     private void placeFragment(Fragment fragment, String tag){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.activity_contact_fragment_container, fragment, tag);
-        transaction.addToBackStack(null);
+        if (!tag.equals(FRAGMENT_CONTACT_LIST_TAG)) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 
@@ -41,7 +47,7 @@ public class ContactActivity extends AppCompatActivity implements ContactListFra
         if (checkPermission()){
             requestPermission();
         } else {
-            placeFragment(new AddContactFragment(), "addContacts");
+            placeFragment(new AddContactFragment(), FRAGMENT_ADD_CONTACT_TAG);
         }
     }
 
@@ -82,7 +88,7 @@ public class ContactActivity extends AppCompatActivity implements ContactListFra
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    placeFragment(new AddContactFragment(), "addContacts");
+                    placeFragment(new AddContactFragment(), FRAGMENT_ADD_CONTACT_TAG);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -103,5 +109,14 @@ public class ContactActivity extends AppCompatActivity implements ContactListFra
     public void addContacts(List<Contact> contacts) {
         ViewModelProviders.of(this).get(ContactViewModel.class).insertContacts(contacts);
         getSupportFragmentManager().popBackStackImmediate();
+    }
+
+    @Override
+    public void goToContactDetail(String contactId) {
+        ContactDetailFragment contactDetailFragment = new ContactDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ContactDetailFragment.KEY_CONTACT_ID, contactId);
+        contactDetailFragment.setArguments(bundle);
+        placeFragment(contactDetailFragment, FRAGMENT_CONTACT_DETAIL_TAG);
     }
 }

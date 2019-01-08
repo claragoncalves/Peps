@@ -27,6 +27,9 @@ public class ContactDAO {
 
         while (cP.moveToNext()) {
             String phNumber = cP.getString(contactPhoneColumn).replace("+","");
+            if (phNumber.startsWith("1")){
+                phNumber = "549" + phNumber;
+            }
             contacts.add(new Contact(cP.getString(contactIdColumn), cP.getString(contactNameColumn), null, phNumber, null));
         }
 

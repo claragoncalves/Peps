@@ -17,4 +17,16 @@
         <item name="android:fontFamily">@font/baloo</item>
     </style>
 
+
+    <style name="textview_generic_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/baloo</item>
+    </style>
+
+    <style name="textview_generic_subtitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+
 </resources>
