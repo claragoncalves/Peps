@@ -48,10 +48,12 @@ public class AdapterRecyclerViewContacts extends RecyclerView.Adapter<AdapterRec
 
     public class ContactViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewContactName;
+        private TextView textViewContactInitial;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewContactName = itemView.findViewById(R.id.cell_contact_recycler_textview_name);
+            textViewContactInitial = itemView.findViewById(R.id.cell_contact_recycler_textview_initial);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,6 +64,8 @@ public class AdapterRecyclerViewContacts extends RecyclerView.Adapter<AdapterRec
 
         public void bindContact(Contact contact){
             textViewContactName.setText(contact.getName());
+            String letter = String.valueOf(contact.getName().charAt(0));
+            textViewContactInitial.setText(letter);
         }
     }
 

@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".view.activities.AddActivity" />
         <activity android:name=".view.activities.DetailActivity" />
-        <activity android:name=".view.activities.ContactActivity"></activity>
     </application>
 
 </manifest>

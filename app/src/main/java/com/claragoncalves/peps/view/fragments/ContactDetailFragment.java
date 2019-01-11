@@ -2,9 +2,11 @@ package com.claragoncalves.peps.view.fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ public class ContactDetailFragment extends Fragment {
 
     public static final String KEY_CONTACT_ID = "contactId";
     private Contact contact;
+    private NewOrderListener newOrderListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,10 +52,16 @@ public class ContactDetailFragment extends Fragment {
             }
         });
 
+        FloatingActionButton buttonAddNewOrder = view.findViewById(R.id.fragment_contact_detail_add_order);
+        buttonAddNewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newOrderListener.addNewOrder(contact.getId());
+            }
+        });
+
         return view;
     }
-
-
 
     public void openWhatsApp(String message){
         try {
@@ -63,6 +72,16 @@ public class ContactDetailFragment extends Fragment {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        newOrderListener = (NewOrderListener) context;
+    }
+
+    public interface NewOrderListener{
+        public void addNewOrder(String contactId);
     }
 
 }
