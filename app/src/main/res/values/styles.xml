@@ -28,5 +28,16 @@
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
+    <style name="collapsingToolbarLayoutCollapsedTitleColor" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
+    <style name="collapsingToolbarLayoutExpandedTitleColor" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>
