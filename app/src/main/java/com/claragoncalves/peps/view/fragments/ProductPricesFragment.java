@@ -34,7 +34,7 @@ public class ProductPricesFragment extends Fragment implements AdapterRecyclerVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_products, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_prices, container, false);
 
         recyclerView = view.findViewById(R.id.products_fragment_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.claragoncalves.peps.model.dao.ContactRoomDAO;
+import com.claragoncalves.peps.model.dao.OrderDetailRoomDAO;
 import com.claragoncalves.peps.model.dao.OrderRoomDAO;
 import com.claragoncalves.peps.model.dao.ProductRoomDAO;
 import com.claragoncalves.peps.model.pojo.Contact;
@@ -20,6 +21,7 @@ public abstract class PepsRoomDB extends RoomDatabase {
     public abstract ProductRoomDAO productDAO();
     public abstract ContactRoomDAO contactDAO();
     public abstract OrderRoomDAO orderDAO();
+    public abstract OrderDetailRoomDAO orderDetailDAO();
 
     private static volatile PepsRoomDB INSTANCE;
 

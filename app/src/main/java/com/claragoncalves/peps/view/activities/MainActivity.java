@@ -19,7 +19,9 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Contact;
+import com.claragoncalves.peps.model.pojo.OrderDetail;
 import com.claragoncalves.peps.view.fragments.AddContactFragment;
+import com.claragoncalves.peps.view.fragments.AddOrderFragment;
 import com.claragoncalves.peps.view.fragments.ContactDetailFragment;
 import com.claragoncalves.peps.view.fragments.ContactListFragment;
 import com.claragoncalves.peps.view.fragments.OrderListFragment;
@@ -27,15 +29,21 @@ import com.claragoncalves.peps.view.fragments.ProductDetailFragment;
 import com.claragoncalves.peps.view.fragments.ProductListFragment;
 import com.claragoncalves.peps.view.fragments.ProductPricesFragment;
 import com.claragoncalves.peps.viewmodel.ContactViewModel;
+import com.claragoncalves.peps.viewmodel.OrderDetailViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ProductPricesFragment.GoToAddProductListener, ProductPricesFragment.GoToProductDetailListener, ContactListFragment.GoToAddContactsListener, AddContactFragment.AddContactsListener, ContactListFragment.GoToContactDetailListener, ContactDetailFragment.NewOrderListener {
+public class MainActivity extends AppCompatActivity implements ProductPricesFragment.GoToAddProductListener,
+        ProductPricesFragment.GoToProductDetailListener,
+        ContactListFragment.GoToAddContactsListener,
+        AddContactFragment.AddContactsListener,
+        ContactListFragment.GoToContactDetailListener,
+        ContactDetailFragment.NewOrderListener,
+        AddOrderFragment.CreateNewOrderListener, ProductListFragment.AddOrderDetailsListener {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
 
     private BottomNavigationView bottomNavigationView;
-    private ProductListFragment productListFragment = new ProductListFragment();
     private ProductPricesFragment productPricesFragment = new ProductPricesFragment();
     private OrderListFragment orderListFragment = new OrderListFragment();
     private ContactListFragment contactListFragment = new ContactListFragment();
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
     private static final String FRAGMENT_CONTACT_LIST_TAG = "fragmentContactList";
     private static final String FRAGMENT_CONTACT_DETAIL_TAG = "fragmentContactDetail";
     private static final String FRAGMENT_ADD_CONTACT_TAG = "fragmentAddContact";
+    private static final String FRAGMENT_ADD_ORDER_TAG = "fragmentAddOrder";
 
 
     @Override
@@ -53,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        placeFragment(contactListFragment, FRAGMENT_PRODUCT_LIST_TAG, false);
+        placeFragment(contactListFragment, FRAGMENT_CONTACT_LIST_TAG, false);
         setBottomNavigationView();
 
     }
@@ -74,10 +83,6 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
 
     public void bottomNavigationItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.bottom_nav_button_buy:
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                placeFragment(productListFragment, FRAGMENT_PRODUCT_LIST_TAG, false);
-                break;
             case R.id.bottom_nav_button_orders:
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 placeFragment(orderListFragment, FRAGMENT_ORDER_LIST_TAG, false);
@@ -183,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
     @Override
     public void addContacts(List<Contact> contacts) {
         ViewModelProviders.of(this).get(ContactViewModel.class).insertContacts(contacts);
-        getSupportFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().popBackStack();
     }
 
     @Override
@@ -197,11 +202,37 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
 
     @Override
     public void addNewOrder(String contactId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ProductListFragment.CONTACT_ID_KEY, contactId);
+        AddOrderFragment addOrderFragment = new AddOrderFragment();
+        addOrderFragment.setArguments(bundle);
+        placeFragment(addOrderFragment, FRAGMENT_ADD_ORDER_TAG, true);
+    }
 
+    @Override
+    public void createNewOrder(Bundle bundle) {
+        ProductListFragment productListFragment = new ProductListFragment();
+        productListFragment.setArguments(bundle);
+        placeFragment(productListFragment, FRAGMENT_PRODUCT_LIST_TAG, true);
+    }
+
+    @Override
+    public void addOrderDetails(List<OrderDetail> orderDetails) {
+        ViewModelProviders.of(this).get(OrderDetailViewModel.class).insertOrderDetails(orderDetails);
+        clearStack();
+    }
+
+    public void clearStack() {
+        int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackEntry > 0) {
+            for (int i = 0; i < backStackEntry; i++) {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+        }
     }
 
 
-    //    private void showHideBottomNavigation(){
+        //    private void showHideBottomNavigation(){
 //        if (bottomNavigationView.getVisibility() == View.VISIBLE){
 //            bottomNavigationView.setVisibility(View.GONE);
 //        } else {

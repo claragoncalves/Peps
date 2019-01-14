@@ -20,25 +20,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterRecyclerProducts extends RecyclerView.Adapter<AdapterRecyclerProducts.ProductsViewHolder>{
-    public static final String CATEGORY_BUY = "categoryBuy";
-    public static final String CATEGORY_SELL = "categorySell";
+
     private List<Product> products;
-    private String categoryName;
     private SumInterface sumInterface;
 
-    public AdapterRecyclerProducts(String categoryName, SumInterface sumInterface) {
+    public AdapterRecyclerProducts(SumInterface sumInterface) {
         this.products = new ArrayList<>();
-        this.categoryName = categoryName;
         this.sumInterface = sumInterface;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
         notifyDataSetChanged();
-    }
-
-    public List<Product> getProducts() {
-        return products;
     }
 
     @Override
@@ -124,11 +121,7 @@ public class AdapterRecyclerProducts extends RecyclerView.Adapter<AdapterRecycle
             } else {
                 editTextQuantity.setText("");
             }
-            if (categoryName.equals(CATEGORY_BUY)){
-                textViewPrice.setText("$" + df.format(product.getBuyPrice()));
-            }else {
-                textViewPrice.setText("$" + df.format(product.getSellPrice()));
-            }
+            textViewPrice.setText("$" + df.format(product.getSellPrice()));
         }
     }
 
@@ -142,18 +135,13 @@ public class AdapterRecyclerProducts extends RecyclerView.Adapter<AdapterRecycle
 
     private String calculateTotal(){
         Double total = 0.0;
-        if (categoryName.equals(CATEGORY_BUY)) {
-            for (Product product : products) {
-                total = total + product.getBuyPrice() * product.getQuantity();
-            }
-        }else {
-           for (Product product : products) {
-                total = total + product.getSellPrice() * product.getQuantity();
-           }
+
+        for (Product product : products) {
+            total = total + product.getSellPrice() * product.getQuantity();
         }
 
         DecimalFormat df = new DecimalFormat("####0.00");
 
-        return " " + categoryName + ": $" + df.format(total);
+        return "Total: $" + df.format(total);
     }
 }

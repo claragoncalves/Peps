@@ -3,6 +3,5 @@
 
     <item android:id="@+id/bottom_nav_button_contacts" android:icon="@drawable/ic_person_outline_black_24dp" android:title="@string/seccion_contactos"/>
     <item android:id="@+id/bottom_nav_button_price" android:icon="@drawable/ic_price" android:title="@string/seccion_precios"/>
-    <item android:id="@+id/bottom_nav_button_buy" android:icon="@drawable/ic_buy" android:title="@string/seccion_compras"/>
     <item android:id="@+id/bottom_nav_button_orders" android:icon="@drawable/ic_orders" android:title="@string/seccion_pedidos"/>
 </menu>
