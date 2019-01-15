@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
+import com.claragoncalves.peps.model.pojo.OrderContainer;
 import com.claragoncalves.peps.model.pojo.OrderDetail;
 import com.claragoncalves.peps.model.repository.OrderDetailRepository;
 
@@ -22,4 +23,15 @@ public class OrderDetailViewModel extends AndroidViewModel {
         repository.insertOrderDetails(orderDetails);
     }
 
+    public List<OrderDetail> getAllOrderDetailsFromOrder(Integer orderId){
+        return repository.getAllOrderDetailsFromOrder(orderId);
+    }
+
+    public List<OrderDetail> getContactOrderDetailsFromOrder(String contactId, Integer orderId){
+        return repository.getContactOrderDetailsFromOrder(contactId, orderId);
+    }
+
+    public List<OrderContainer> getAllOrderAndDetailsFromContact(String contactId){
+        return repository.getAllOrderAndDetailsFromContact(contactId);
+    }
 }

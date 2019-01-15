@@ -64,4 +64,15 @@ public class Order {
     public String getNotes() {
         return notes;
     }
+
+    @Ignore
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }
