@@ -231,7 +231,13 @@ public class MainActivity extends AppCompatActivity implements ProductPricesFrag
         }
     }
 
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
         //    private void showHideBottomNavigation(){
 //        if (bottomNavigationView.getVisibility() == View.VISIBLE){
 //            bottomNavigationView.setVisibility(View.GONE);

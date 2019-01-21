@@ -35,4 +35,13 @@ public class OrderRepository {
         orderRoomDAO.deleteOrder(order);
     }
 
+    public List<String> getAllOrdersNames(){
+        return orderRoomDAO.getAllOrdersNames();
+    }
+
+    public Integer findOrderIdFromName(String orderName){
+        return orderRoomDAO.findOrderIdFromName(orderName);
+    }
+
+
 }

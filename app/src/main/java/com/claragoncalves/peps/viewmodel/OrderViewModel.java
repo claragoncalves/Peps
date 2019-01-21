@@ -33,4 +33,12 @@ public class OrderViewModel extends AndroidViewModel {
     public Order getOrderById(Integer orderId){
         return repository.getOrderById(orderId);
     }
+
+    public List<String> getAllOrdersNames(){
+        return repository.getAllOrdersNames();
+    }
+
+    public Integer findOrderIdFromName(String orderName){
+        return repository.findOrderIdFromName(orderName);
+    }
 }

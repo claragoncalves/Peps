@@ -20,6 +20,6 @@ public interface OrderDetailRoomDAO {
     @Query("SELECT orderId FROM order_detail_table WHERE contactId == :contactId GROUP BY orderId")
     List<Integer> getAllIdsOfOrdersFromContact(String contactId);
 
-    @Query("SELECT * FROM order_detail_table WHERE orderId == :orderId AND contactId == :contactId")
+    @Query("SELECT *, SUM(productQuantity) AS productQuantity FROM order_detail_table WHERE orderId == :orderId AND contactId == :contactId GROUP BY productId")
     List<OrderDetail> getContactOrderDetailsFromOrder(String contactId, Integer orderId);
 }

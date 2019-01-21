@@ -1,19 +1,24 @@
 package com.claragoncalves.peps.model.pojo;
 
-import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderContainer {
     private Order order;
-    private List<OrderDetail> orderDetails;
+    private List<Product> products;
 
-    public OrderContainer(Order order, List<OrderDetail> orderDetails) {
+    public OrderContainer(Order order) {
         this.order = order;
-        this.orderDetails = orderDetails;
+        products = new ArrayList<>();
     }
 
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Order getOrder() {

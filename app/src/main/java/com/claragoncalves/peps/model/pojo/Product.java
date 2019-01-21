@@ -52,4 +52,15 @@ public class Product {
     public Double getSellPrice() {
         return sellPrice;
     }
+
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

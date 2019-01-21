@@ -1,6 +1,7 @@
 package com.claragoncalves.peps.view.adapters;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,18 +43,25 @@ public class AdapterRecyclerViewOrderContainers extends RecyclerView.Adapter<Ada
     }
 
     public class OrderContainerViewHolder extends RecyclerView.ViewHolder{
-        private TextView textViewOrderInfo;
-        private TextView textViewOrderDetails;
+        private TextView textViewOrderName;
+        private TextView textViewOrderDate;
+        private RecyclerView recyclerViewProducts;
+        private AdapterRecyclerViewOrderProducts adapter;
 
         public OrderContainerViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewOrderInfo = itemView.findViewById(R.id.cell_order_container_order_info);
-            textViewOrderDetails = itemView.findViewById(R.id.cell_order_container_order_details);
+            textViewOrderName = itemView.findViewById(R.id.cell_order_container_order_name);
+            textViewOrderDate = itemView.findViewById(R.id.cell_order_container_order_date);
+            recyclerViewProducts = itemView.findViewById(R.id.cell_order_container_order_recycler_products);
+            recyclerViewProducts.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.VERTICAL, false));
+            adapter = new AdapterRecyclerViewOrderProducts();
+            recyclerViewProducts.setAdapter(adapter);
         }
 
         public void bindOrder(OrderContainer orderContainer){
-            textViewOrderInfo.setText(orderContainer.getOrder().toString());
-            textViewOrderDetails.setText(orderContainer.getOrderDetails().toString());
+            textViewOrderName.setText(orderContainer.getOrder().getName());
+            textViewOrderDate.setText(orderContainer.getOrder().getDate().toString());
+            adapter.setProducts(orderContainer.getProducts());
         }
     }
 }

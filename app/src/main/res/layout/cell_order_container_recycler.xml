@@ -2,18 +2,33 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp">
 
-    <TextView
+    <TextView style="@style/textview_generic_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cell_order_container_order_info"
+        android:id="@+id/cell_order_container_order_name"
         />
 
-    <TextView
+    <TextView style="@style/textview_generic_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cell_order_container_order_details"
+        android:id="@+id/cell_order_container_order_date"
         />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cell_order_container_order_recycler_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        style="@style/textview_generic_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cell_order_container_order_total"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/greyLightBackground"/>
 </LinearLayout>

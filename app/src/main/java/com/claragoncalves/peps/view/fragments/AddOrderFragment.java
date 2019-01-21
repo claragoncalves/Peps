@@ -8,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Order;
@@ -42,6 +45,20 @@ public class AddOrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Integer orderId = (int) (long) orderViewModel.insertOrder(bindOrder());
+                bundle.putInt(ProductListFragment.ORDER_ID_KEY, orderId);
+                listener.createNewOrder(bundle);
+            }
+        });
+
+
+        final Spinner spinnerExistingOrders = view.findViewById(R.id.fragment_add_order_spinner_existing);
+        spinnerExistingOrders.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, orderViewModel.getAllOrdersNames()));
+
+        Button buttonAddToExistingOrder = view.findViewById(R.id.fragment_add_order_button_add_to_existing);
+        buttonAddToExistingOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer orderId = orderViewModel.findOrderIdFromName(spinnerExistingOrders.getSelectedItem().toString());
                 bundle.putInt(ProductListFragment.ORDER_ID_KEY, orderId);
                 listener.createNewOrder(bundle);
             }

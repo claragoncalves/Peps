@@ -19,10 +19,15 @@ public interface OrderRoomDAO {
     @Query("SELECT * FROM orders_table ORDER BY date ASC")
     LiveData<List<Order>> getAllOrders();
 
-
     @Query("SELECT * FROM orders_table WHERE id == :id")
     Order getOrderById(Integer id);
 
     @Delete
     void deleteOrder(Order order);
+
+    @Query("SELECT name FROM orders_table")
+    List<String> getAllOrdersNames();
+
+    @Query("SELECT id FROM orders_table WHERE name == :orderName")
+    Integer findOrderIdFromName(String orderName);
 }

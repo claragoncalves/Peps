@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -25,7 +27,7 @@ import com.claragoncalves.peps.viewmodel.ContactViewModel;
 import com.claragoncalves.peps.viewmodel.OrderDetailViewModel;
 
 
-public class ContactDetailFragment extends Fragment {
+public class ContactDetailFragment extends Fragment{
 
     public static final String KEY_CONTACT_ID = "contactId";
     private Contact contact;
@@ -54,10 +56,12 @@ public class ContactDetailFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 
         textViewPhone.setText(contact.getPhoneNumber());
         textViewAddress.setText("Artigas 634");
         textViewDescription.setText("Martes y jueves el horario de entrega por la tarde.");
+
 
         FloatingActionButton buttonOpenWhatsApp = view.findViewById(R.id.fragment_contact_detail_button_whatsapp);
         buttonOpenWhatsApp.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +101,14 @@ public class ContactDetailFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         newOrderListener = (NewOrderListener) context;
     }
+
+
 
     public interface NewOrderListener{
         public void addNewOrder(String contactId);
