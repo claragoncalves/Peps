@@ -44,16 +44,19 @@ public class AdapterRecyclerViewOrderProducts extends RecyclerView.Adapter<Adapt
     public class OrderProductViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewProductName;
         private TextView textViewProductQuantity;
+        private TextView textViewProductUnitPrice;
 
         public OrderProductViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewProductName = itemView.findViewById(R.id.cell_product_order_detail_recycler_name);
             textViewProductQuantity = itemView.findViewById(R.id.cell_product_order_detail_recycler_quantity);
+            textViewProductUnitPrice = itemView.findViewById(R.id.cell_product_order_detail_recycler_unit_price);
         }
 
         public void bindProduct(Product product){
             textViewProductName.setText(product.getName());
             textViewProductQuantity.setText(product.getQuantity().toString());
+            textViewProductUnitPrice.setText("$" + product.getSellPrice().toString());
         }
     }
 }

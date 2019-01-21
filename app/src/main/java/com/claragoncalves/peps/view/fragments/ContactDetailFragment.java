@@ -1,10 +1,14 @@
 package com.claragoncalves.peps.view.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +25,19 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.claragoncalves.peps.R;
 import com.claragoncalves.peps.model.pojo.Contact;
 import com.claragoncalves.peps.view.adapters.AdapterRecyclerViewOrderContainers;
 import com.claragoncalves.peps.viewmodel.ContactViewModel;
 import com.claragoncalves.peps.viewmodel.OrderDetailViewModel;
 
+import java.io.OutputStream;
+import java.lang.reflect.Type;
 
-public class ContactDetailFragment extends Fragment{
+
+public class ContactDetailFragment extends Fragment implements AdapterRecyclerViewOrderContainers.OrderContainerListener {
 
     public static final String KEY_CONTACT_ID = "contactId";
     private Contact contact;
@@ -82,7 +92,7 @@ public class ContactDetailFragment extends Fragment{
 
         RecyclerView recyclerViewOrderContainer = view.findViewById(R.id.fragment_contact_detail_recyclerview_orders);
         recyclerViewOrderContainer.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        AdapterRecyclerViewOrderContainers adapterRecyclerViewOrderContainers = new AdapterRecyclerViewOrderContainers();
+        AdapterRecyclerViewOrderContainers adapterRecyclerViewOrderContainers = new AdapterRecyclerViewOrderContainers(this);
         recyclerViewOrderContainer.setAdapter(adapterRecyclerViewOrderContainers);
 
         adapterRecyclerViewOrderContainers.setOrderContainers(ViewModelProviders.of(this).get(OrderDetailViewModel.class).getAllOrderAndDetailsFromContact(contact.getId()));
@@ -99,6 +109,13 @@ public class ContactDetailFragment extends Fragment{
         catch (Exception e){
             e.printStackTrace();
         }
+
+        /*
+          Intent sendIntent = new Intent("android.intent.action.MAIN");
+        sendIntent.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
+        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(contact.getPhoneNumber())+"@s.whatsapp.net");
+        startActivity(sendIntent);
+         */
     }
 
 
@@ -108,6 +125,10 @@ public class ContactDetailFragment extends Fragment{
         newOrderListener = (NewOrderListener) context;
     }
 
+    @Override
+    public void shareOrderDetails(Bitmap bitmap) {
+        Toast.makeText(getContext(), "NADA AUN", Toast.LENGTH_SHORT).show();
+    }
 
 
     public interface NewOrderListener{

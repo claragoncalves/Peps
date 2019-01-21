@@ -9,16 +9,33 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        android:id="@+id/guideline_v_50"/>
+
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7"
         android:id="@+id/guideline_v_70"/>
-
     <TextView style="@style/textview_generic_subtitle"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_v_70"
+        app:layout_constraintRight_toLeftOf="@id/guideline_v_50"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/cell_product_order_detail_recycler_name"/>
+
+    <TextView style="@style/textview_generic_title"
+        android:gravity="end"
+        app:layout_constraintLeft_toRightOf="@id/guideline_v_50"
+        app:layout_constraintRight_toLeftOf="@id/guideline_v_70"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cell_product_order_detail_recycler_quantity"/>
+
 
     <TextView style="@style/textview_generic_title"
         android:gravity="end"
@@ -27,6 +44,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/cell_product_order_detail_recycler_quantity"/>
+        android:id="@+id/cell_product_order_detail_recycler_unit_price"/>
 
 </android.support.constraint.ConstraintLayout>

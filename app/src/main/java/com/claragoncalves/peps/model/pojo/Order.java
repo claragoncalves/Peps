@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 
 import com.claragoncalves.peps.util.TimeConverter;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 @Entity(tableName = "orders_table")
@@ -30,6 +31,10 @@ public class Order {
         this.name = name;
         this.date = new Date();
         this.notes = notes;
+    }
+
+    public String getDateWithFormat(){
+        return DateFormat.getDateInstance(DateFormat.SHORT).format(date);
     }
 
     public void setId(@NonNull Integer id) {
